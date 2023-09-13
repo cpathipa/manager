@@ -4,6 +4,7 @@ import countryData from 'country-region-data';
 import * as React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
+import { Box } from 'src/components/Box';
 import { Typography } from 'src/components/Typography';
 
 import {
@@ -103,17 +104,6 @@ const ContactInformation = (props: Props) => {
     (_country) => _country.countryShortCode === country
   )?.countryName;
 
-  const sxGrid = {
-    flex: 1,
-    maxWidth: '100%',
-    position: 'relative',
-    ...(Boolean(taxId) &&
-      taxId !== '' && {
-        display: 'flex',
-        flexDirection: 'column',
-      }),
-  };
-
   return (
     <Grid md={6} xs={12}>
       <BillingPaper data-qa-contact-summary variant="outlined">
@@ -129,7 +119,7 @@ const ContactInformation = (props: Props) => {
           </BillingActionButton>
         </BillingBox>
 
-        <Grid container spacing={2}>
+        <Box display={'flex'} justifyContent={'space-between'}>
           {(firstName ||
             lastName ||
             company ||
@@ -139,7 +129,7 @@ const ContactInformation = (props: Props) => {
             state ||
             zip ||
             country) && (
-            <Grid sx={sxGrid}>
+            <Box>
               {(firstName || lastName) && (
                 <StyledTypography
                   data-qa-contact-name
@@ -169,9 +159,9 @@ const ContactInformation = (props: Props) => {
                 {city && state && ','} {state} {zip}
               </StyledTypography>
               <StyledTypography>{countryName}</StyledTypography>
-            </Grid>
+            </Box>
           )}
-          <Grid sx={sxGrid}>
+          <Box>
             <StyledTypography
               data-qa-contact-email
               sx={{ wordBreak: 'break-all' }}
@@ -186,8 +176,8 @@ const ContactInformation = (props: Props) => {
                 <strong>Tax ID</strong> {taxId}
               </StyledTypography>
             )}
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </BillingPaper>
       <BillingContactDrawer
         onClose={() => {
