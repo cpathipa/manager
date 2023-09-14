@@ -6,22 +6,17 @@ import { makeStyles } from 'tss-react/mui';
 
 import Error from 'src/assets/icons/alert.svg';
 import Check from 'src/assets/icons/check.svg';
-import Flag from 'src/assets/icons/flag.svg';
 import Warning from 'src/assets/icons/warning.svg';
 import { Typography, TypographyProps } from 'src/components/Typography';
+import { fadeIn } from 'src/styles/keyframes';
+
+const animationDelay = '100ms';
+const animationDuration = '225ms';
 
 export const useStyles = makeStyles<
   void,
   'error' | 'icon' | 'important' | 'noticeText'
 >()((theme: Theme, _params, classes) => ({
-  '@keyframes fadeIn': {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-  },
   breakWords: {
     [`& .${classes.noticeText}`]: {
       wordBreak: 'break-all',
@@ -31,14 +26,13 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: '$fadeIn 225ms linear forwards',
+    animation: `${fadeIn} ${animationDuration} linear forwards`,
+    animationDelay,
     borderLeft: `5px solid ${theme.palette.error.dark}`,
+    opacity: 0,
   },
   errorList: {
     borderLeft: `5px solid ${theme.palette.error.dark}`,
-  },
-  flag: {
-    marginRight: theme.spacing(2),
   },
   icon: {
     color: 'white',
@@ -57,8 +51,10 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: '$fadeIn 225ms linear forwards',
+    animation: `${fadeIn}  ${animationDuration} linear forwards`,
+    animationDelay,
     borderLeft: `5px solid ${theme.palette.info.dark}`,
+    opacity: 0,
   },
   infoList: {
     borderLeft: `5px solid ${theme.palette.info.dark}`,
@@ -90,7 +86,7 @@ export const useStyles = makeStyles<
     fontSize: '1rem',
     marginBottom: theme.spacing(2),
     maxWidth: '100%',
-    padding: '4px 16px',
+    padding: theme.spacing(2),
     paddingRight: 18,
     position: 'relative',
   },
@@ -98,8 +94,10 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: '$fadeIn 225ms linear forwards',
+    animation: `${fadeIn} ${animationDuration} linear forwards`,
+    animationDelay,
     borderLeft: `5px solid ${theme.palette.success.dark}`,
+    opacity: 0,
   },
   successList: {
     borderLeft: `5px solid ${theme.palette.success.dark}`,
@@ -111,8 +109,10 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: '$fadeIn 225ms linear forwards',
+    animation: `${fadeIn} ${animationDuration} linear forwards`,
+    animationDelay,
     borderLeft: `5px solid ${theme.palette.warning.dark}`,
+    opacity: 0,
   },
   warningList: {
     borderLeft: `5px solid ${theme.palette.warning.dark}`,
@@ -151,7 +151,6 @@ export const Notice = (props: NoticeProps) => {
     className,
     dataTestId,
     errorGroup,
-    flag,
     important,
     notificationList,
     onClick,
@@ -243,11 +242,6 @@ export const Notice = (props: NoticeProps) => {
       role="alert"
       sx={sx}
     >
-      {flag && (
-        <Grid>
-          <Flag className={classes.flag} />
-        </Grid>
-      )}
       {important &&
         ((variantMap.success && (
           <Check className={classes.icon} data-qa-success-img />
