@@ -31,7 +31,7 @@ export const useStyles = makeStyles<
     // animation: `${fadeIn} ${animationDuration} linear forwards`,
     // animationDelay,
     borderLeft: `5px solid ${theme.palette.error.dark}`,
-    opacity: 0,
+    // opacity: 0,
   },
   errorList: {
     borderLeft: `5px solid ${theme.palette.error.dark}`,
