@@ -8,10 +8,12 @@ import Error from 'src/assets/icons/alert.svg';
 import Check from 'src/assets/icons/check.svg';
 import Warning from 'src/assets/icons/warning.svg';
 import { Typography, TypographyProps } from 'src/components/Typography';
-import { fadeIn } from 'src/styles/keyframes';
+// import { fadeIn } from 'src/styles/keyframes';
 
-const animationDelay = '100ms';
-const animationDuration = '225ms';
+// TODO: Confirm if we want to use this animation
+// Disabling for now because it's causing assertion issues in unit tests
+// const animationDelay = '100ms';
+// const animationDuration = '225ms';
 
 export const useStyles = makeStyles<
   void,
@@ -26,8 +28,8 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: `${fadeIn} ${animationDuration} linear forwards`,
-    animationDelay,
+    // animation: `${fadeIn} ${animationDuration} linear forwards`,
+    // animationDelay,
     borderLeft: `5px solid ${theme.palette.error.dark}`,
     opacity: 0,
   },
@@ -51,10 +53,10 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: `${fadeIn}  ${animationDuration} linear forwards`,
-    animationDelay,
+    // animation: `${fadeIn}  ${animationDuration} linear forwards`,
+    // animationDelay,
     borderLeft: `5px solid ${theme.palette.info.dark}`,
-    opacity: 0,
+    // opacity: 0,
   },
   infoList: {
     borderLeft: `5px solid ${theme.palette.info.dark}`,
@@ -94,10 +96,10 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: `${fadeIn} ${animationDuration} linear forwards`,
-    animationDelay,
+    // animation: `${fadeIn} ${animationDuration} linear forwards`,
+    // animationDelay,
     borderLeft: `5px solid ${theme.palette.success.dark}`,
-    opacity: 0,
+    // opacity: 0,
   },
   successList: {
     borderLeft: `5px solid ${theme.palette.success.dark}`,
@@ -109,10 +111,10 @@ export const useStyles = makeStyles<
     [`&.${classes.important}`]: {
       borderLeftWidth: 32,
     },
-    animation: `${fadeIn} ${animationDuration} linear forwards`,
-    animationDelay,
+    // animation: `${fadeIn} ${animationDuration} linear forwards`,
+    // animationDelay,
     borderLeft: `5px solid ${theme.palette.warning.dark}`,
-    opacity: 0,
+    // opacity: 0,
   },
   warningList: {
     borderLeft: `5px solid ${theme.palette.warning.dark}`,
