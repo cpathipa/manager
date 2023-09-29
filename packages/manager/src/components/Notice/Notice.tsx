@@ -88,7 +88,7 @@ export const useStyles = makeStyles<
     fontSize: '1rem',
     marginBottom: theme.spacing(2),
     maxWidth: '100%',
-    padding: theme.spacing(2),
+    padding: '4px 16px',
     paddingRight: 18,
     position: 'relative',
   },
