@@ -40,7 +40,6 @@ import {
   isSmallerThanCurrentPlan,
   shouldEnableAutoResizeDiskOption,
 } from './LinodeResize.utils';
-import { UnifiedConfirmationDialog } from './LinodeResizeUnifiedMigrationConfirmationDialog';
 import { UnifiedMigrationPanel } from './LinodeResizeUnifiedMigrationPanel';
 
 import type { ButtonProps } from 'src/components/Button/Button';
@@ -80,10 +79,7 @@ export const LinodeResize = (props: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [confirmationText, setConfirmationText] = React.useState('');
-  const [
-    isConfirmationDialogOpen,
-    setIsConfirmationDialogOpen,
-  ] = React.useState<boolean>(false);
+
   const [hasResizeError, setHasResizeError] = React.useState<boolean>(false);
 
   const {
@@ -155,24 +151,21 @@ export const LinodeResize = (props: Props) => {
       formik.resetForm();
       setConfirmationText('');
       setHasResizeError(false);
-      setIsConfirmationDialogOpen(false);
     }
   }, [open]);
 
   React.useEffect(() => {
     if (resizeError) {
       setHasResizeError(true);
-      // Always close the confirmation dialog on error.
-      setIsConfirmationDialogOpen(false);
     }
   }, [resizeError]);
 
   React.useEffect(() => {
-    if (!isConfirmationDialogOpen && hasResizeError) {
+    if (hasResizeError) {
       // Set to "block: end" since the sticky header would otherwise interfere.
       scrollErrorIntoView(undefined, { block: 'end' });
     }
-  }, [isConfirmationDialogOpen, hasResizeError]);
+  }, [hasResizeError]);
 
   const tableDisabled = hostMaintenance || unauthorized;
 
@@ -199,12 +192,8 @@ export const LinodeResize = (props: Props) => {
   const error = getError(resizeError);
 
   const resizeButtonProps: ButtonProps =
-    flags.unifiedMigrations &&
-    formik.values.migration_type === 'warm' &&
-    !isLinodeOffline
-      ? {
-          onClick: () => setIsConfirmationDialogOpen(true),
-        }
+    flags.unifiedMigrations && !isLinodeOffline
+      ? {}
       : {
           loading: isLoading,
           type: 'submit',
@@ -352,19 +341,13 @@ export const LinodeResize = (props: Props) => {
             }
             buttonType="primary"
             data-qa-resize
+            loading={flags.unifiedMigrations && isLinodeOffline}
+            type="submit"
             {...resizeButtonProps}
           >
             Resize Linode
           </Button>
         </Box>
-        {flags.unifiedMigrations && (
-          <UnifiedConfirmationDialog
-            formik={formik}
-            isConfirmationDialogOpen={isConfirmationDialogOpen}
-            isLoading={isLoading}
-            setIsConfirmationDialogOpen={setIsConfirmationDialogOpen}
-          />
-        )}
       </form>
     </Dialog>
   );
