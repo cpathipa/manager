@@ -21,11 +21,27 @@ import {
 
 import { refinedSearch } from './refinedSearch';
 import {
+  Product,
   SearchResults,
   SearchResultsByEntity,
   SearchableItem,
 } from './search.interfaces';
 import { emptyResults, separateResultsByEntity } from './utils';
+
+const productsMap: Product[] = [
+  {
+    data: { path: '/linodes', searchString: '' },
+    entityType: 'Linodes',
+    label: 'Linodes',
+    value: '/linodes',
+  },
+  {
+    data: { path: '/volumes', searchString: '' },
+    entityType: 'Volumes',
+    label: 'Volumes',
+    value: '/volumes',
+  },
+];
 
 interface HandlerProps {
   search: (
@@ -44,6 +60,7 @@ export interface SearchProps extends HandlerProps {
   combinedResults: SearchableItem[];
   entities: SearchableItem[];
   entitiesLoading: boolean;
+  products: SearchableItem[];
   searchResultsByEntity: SearchResultsByEntity;
 }
 
@@ -59,6 +76,10 @@ export const search = (
 
   return {
     combinedResults,
+    products: productsMap.filter(
+      (product) =>
+        product?.label?.toLocaleLowerCase() === inputValue.toLocaleLowerCase()
+    ),
     searchResultsByEntity: separateResultsByEntity(combinedResults),
   };
 };
@@ -117,9 +138,11 @@ export default () => (Component: React.ComponentType<any>) => {
             ],
             query
           );
-          const { combinedResults, searchResultsByEntity } = results;
+          const { combinedResults, products, searchResultsByEntity } = results;
+
           return {
             combinedResults,
+            products,
             searchResultsByEntity,
           };
         },

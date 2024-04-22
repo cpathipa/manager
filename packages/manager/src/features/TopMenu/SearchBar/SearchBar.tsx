@@ -80,7 +80,7 @@ export const selectStyles = {
 };
 
 const SearchBar = (props: SearchProps) => {
-  const { combinedResults, entitiesLoading, search } = props;
+  const { combinedResults, entitiesLoading, products, search } = props;
   const [searchText, setSearchText] = React.useState<string>('');
   const [value, setValue] = React.useState<Item | null>(null);
   const [searchActive, setSearchActive] = React.useState<boolean>(false);
@@ -314,15 +314,18 @@ const SearchBar = (props: SearchProps) => {
     return true;
   };
 
-  const finalOptions = createFinalOptions(
-    isLargeAccount ? apiResults : combinedResults,
-    searchText,
-    isLargeAccount ? apiSearchLoading : linodesLoading || imagesLoading,
-    // Ignore "Unauthorized" errors, since these will always happen on LKE
-    // endpoints for restricted users. It's not really an "error" in this case.
-    // We still want these users to be able to use the search feature.
-    Boolean(apiError) && apiError !== 'Unauthorized'
-  );
+  const finalOptions =
+    combinedResults &&
+    products &&
+    createFinalOptions(
+      isLargeAccount ? apiResults : [...combinedResults, ...products],
+      searchText,
+      isLargeAccount ? apiSearchLoading : linodesLoading || imagesLoading,
+      // Ignore "Unauthorized" errors, since these will always happen on LKE
+      // endpoints for restricted users. It's not really an "error" in this case.
+      // We still want these users to be able to use the search feature.
+      Boolean(apiError) && apiError !== 'Unauthorized'
+    );
 
   return (
     <React.Fragment>

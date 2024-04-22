@@ -52,7 +52,7 @@ export const SearchSuggestion = (props: SearchSuggestionProps) => {
   ): React.ReactNode => {
     const idx = text
       .toLocaleLowerCase()
-      .indexOf(searchText.toLocaleLowerCase());
+      .indexOf(searchText?.toLocaleLowerCase());
     if (idx === -1) {
       return text;
     }

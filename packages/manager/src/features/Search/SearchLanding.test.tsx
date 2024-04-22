@@ -16,6 +16,7 @@ const props: Props = {
   combinedResults: [],
   entities: [],
   entitiesLoading: false,
+  products: [],
   search: vi.fn(),
   searchResultsByEntity: emptyResults,
   ...reactRouterProps,

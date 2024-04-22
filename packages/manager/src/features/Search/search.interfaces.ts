@@ -1,6 +1,14 @@
 export interface SearchResults {
   combinedResults: SearchableItem[];
+  products?: Product[];
   searchResultsByEntity: SearchResultsByEntity;
+}
+
+export interface Product {
+  data?: any;
+  entityType: string;
+  label: string;
+  value: string;
 }
 
 export interface SearchableItem<T = number | string> {
